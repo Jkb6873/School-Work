@@ -6,8 +6,6 @@
 #include <string>
 using namespace std;
 
-
-
 template <typename HashTableType>
 void fillTable(HashTableType &hash_table, ifstream &dictionary){
   string line;
@@ -40,7 +38,6 @@ TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename
   cout << "Avg. number of collisions: " << (float)collisions / (float)numItems << endl;
 }
 
-// Sample main for program CreateAndTestHash
 int main(int argc, char **argv) {
   if (argc != 4) {
     cout << "Usage: " << argv[0] << " <wordsfilename> <queryfilename> <flag>" << endl;
@@ -61,7 +58,7 @@ int main(int argc, char **argv) {
     HashTableDouble<string> double_probing_table;
     TestFunctionForHashTable(double_probing_table, words_filename, query_filename);
   } else {
-    cout << "Uknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
+    cout << "Unknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
   }
   return 0;
 }
