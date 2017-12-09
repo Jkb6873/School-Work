@@ -41,16 +41,15 @@ TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename
 }
 
 // Sample main for program CreateAndTestHash
-int
-main(){//int argc, char **argv) {
-  //if (argc != 4) {
-  //  cout << "Usage: " << argv[0] << " <wordsfilename> <queryfilename> <flag>" << endl;
-  //  return 0;
-  //}
+int main(int argc, char **argv) {
+  if (argc != 4) {
+    cout << "Usage: " << argv[0] << " <wordsfilename> <queryfilename> <flag>" << endl;
+    return 0;
+  }
 
-  const string words_filename("wordsEn.txt");   //(argv[1]);
-  const string query_filename("query_words.txt");   //(argv[2]);
-  const string param_flag("double");       //(argv[3]);
+  const string words_filename(argv[1]);
+  const string query_filename(argv[2]);
+  const string param_flag(argv[3]);
 
   if (param_flag == "linear") {
     HashTableLinear<string> linear_probing_table;
