@@ -1,1 +1,0 @@
-A simple project that implements several basic hashing techniques and compares their efficiencies. 
