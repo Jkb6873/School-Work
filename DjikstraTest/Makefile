@@ -48,5 +48,5 @@ all:
 		make $(PROGRAM_2)
 
 clean:
-	(rm -f *.o; rm -f $(PROGRAM_0); rm -f $(PROGRAM_1))
+	(rm -f *.o; rm -f $(PROGRAM_0); rm -f $(PROGRAM_1); rm -f $(PROGRAM_2))
 (:
