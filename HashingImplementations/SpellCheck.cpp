@@ -104,7 +104,7 @@ void TestOpen(const string &fileName, ifstream &streamName){
         streamName.open(fileName);
         if (!streamName.is_open())
             throw 1;
-    } catch (int x){outFile
+    } catch (int x){
         std:: cout  << fileName
                     << " could not be opened." << endl
                     << "Try a different file" << endl;

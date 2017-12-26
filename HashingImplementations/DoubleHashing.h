@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <cmath>
 #include <functional>
 
 template <typename HashedObj>
@@ -135,10 +134,7 @@ class HashTableDouble {
 
   size_t InternalHash2(const HashedObj & x) const {
     static std::hash<HashedObj> hf;
-    //return (hf(x) % lastPrime_)+1;
-    long double y = 0.61803397 * hf(x);
-    y = y - floor(y);
-    return floor(array_.size() * y);
+    return (hf(x) % lastPrime_)+1;
   }
 };
 

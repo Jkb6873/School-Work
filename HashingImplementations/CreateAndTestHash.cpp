@@ -3,8 +3,11 @@
 #include "DoubleHashing.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
+
+
 
 template <typename HashTableType>
 void fillTable(HashTableType &hash_table, ifstream &dictionary){
@@ -13,6 +16,19 @@ void fillTable(HashTableType &hash_table, ifstream &dictionary){
     hash_table.Insert(line);
   }
   dictionary.close();
+}
+
+void TestOpen(const string &fileName, ifstream &streamName){
+    try{
+        streamName.open(fileName);
+        if (!streamName.is_open())
+            throw 1;
+    } catch (int x){
+        std:: cout  << fileName
+                    << " could not be opened." << endl
+                    << "Try a different file" << endl;
+        exit(1);
+    }
 }
 
 template <typename HashTableType>
@@ -24,7 +40,7 @@ TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename
   hash_table.MakeEmpty();
 
   ifstream dictionary;
-  dictionary.open(words_filename);
+  TestOpen(words_filename, dictionary);
   fillTable(hash_table, dictionary);
 
   size_t collisions = hash_table.GetCollisions();
@@ -38,7 +54,9 @@ TestFunctionForHashTable(HashTableType &hash_table, const string &words_filename
   cout << "Avg. number of collisions: " << (float)collisions / (float)numItems << endl;
 }
 
-int main(int argc, char **argv) {
+// Sample main for program CreateAndTestHash
+int
+main(int argc, char **argv) {
   if (argc != 4) {
     cout << "Usage: " << argv[0] << " <wordsfilename> <queryfilename> <flag>" << endl;
     return 0;
@@ -58,7 +76,7 @@ int main(int argc, char **argv) {
     HashTableDouble<string> double_probing_table;
     TestFunctionForHashTable(double_probing_table, words_filename, query_filename);
   } else {
-    cout << "Unknown tree type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
+    cout << "Unknown hash type " << param_flag << " (User should provide linear, quadratic, or double)" << endl;
   }
   return 0;
 }
