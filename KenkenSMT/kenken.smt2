@@ -4,7 +4,7 @@
 ;	I grant permission to use this for research purposes. 
 ;	running time:  0m 0.031s
 ;	1994 MiB System memory
-; Intel Xeon W3503 (2.40 GHz) CPU
+;	Intel Xeon W3503 (2.40 GHz) CPU
 ;
 ;	Below is a SMT model for a 4x4 ken-ken puzzle, where the general rules of the
 ;	puzzle are:
