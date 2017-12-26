@@ -73,7 +73,7 @@
 (assert (or (=(- aa ba) 1) (= (- ba aa) 1)))		;aa - ba = 1 || ba - aa = 1
 (assert (or (= ac (* ad 2))(= ad (* ac 2)))) 		;ac = 2 * ad || ac = 2 * ad
 (assert (or (=(- bb bc) 3) (= (- bc bb) 3)))		;bb - bc = 3 || bc - bb = 3
-(assert (= (+ ca cb cc) 9))							        ;ca + cb + cc = 9
+(assert (= (+ ca cb cc) 9))                            ;ca + cb + cc = 9
 (assert (or (=(- da db) 2) (= (- db da) 2)))		;da - db = 2 || db - da = 2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
