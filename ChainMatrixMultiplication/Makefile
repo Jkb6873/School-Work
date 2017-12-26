@@ -27,6 +27,9 @@ $(PROGRAM_0): $(ALL_OBJ0)
 all:
 		make $(PROGRAM_0)
 
+test:
+		./$(PROGRAM_0) dimensions_file.txt
+
 clean:
 	(rm -f *.o; rm -f $(PROGRAM_0))
 (:
