@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	Author: Jakub Taraska
 ;	I grant permission to use this for research purposes. 
@@ -14,7 +14,7 @@
 ;
 ;	The puzzel being moddeled can be found at http://www.kenkenpuzzle.com/game
 ;	With puzzel number 151803.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (set-option :produce-assignments true)
 (set-logic QF_LIA)
@@ -76,13 +76,13 @@
 (assert (= (+ ca cb cc) 9))							        ;ca + cb + cc = 9
 (assert (or (=(- da db) 2) (= (- db da) 2)))		;da - db = 2 || db - da = 2
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	(assert (= 6 (* bd cd dd)))			 	nonlinear arithmetic, can be replaced
 ;	since 4 is not a factor of 3, the possibilities of bd, cd, and dd are reduced
 ;	to 1, 2, and 3, irrespectively. For any values that they take, the constraint
 ;	6 = bd * cd * dd will hold, so it is sufficient to say ad = 4, and remaining
 ;	values are distinct.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (assert (= ad 4)) 		
 
@@ -92,16 +92,16 @@
 (get-value (ca cb cc cd))
 (get-value (da db dc dd))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	EXPECTED OUTPUT
 ;	sat
 ;	((aa 3)(ab 1)(ac 2)(ad 4))
 ;	((ba 2)(bb 4)(bc 1)(bd 3))
 ;	((ca 4)(cb 2)(cc 3)(cd 1))
 ;	((da 1)(db 3)(dc 4)(dd 2))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	this following line checks if there could be a different ordering of the cage
 ;	{bd, cd, dd}, or the cage {ca, cb, cc}. Other blocks are too easy to derive 
 ;	definite answers for, such as {ac, ad} where ad must be 4, so ac must be 2.
@@ -113,5 +113,5 @@
 ;
 ;	EXPECTED OUTPUT
 ;	unsat
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
