@@ -60,15 +60,15 @@
 (assert (= dc 4))
 (assert (and (> dd 0) (< dd 5)))
 
-(assert (distinct aa ab ac ad))			;the first row is distinct
-(assert (distinct ba bb bc bd))			;the second row is distinct
-(assert (distinct ca cb cc cd))			;the third row is distinct
-(assert (distinct da db dc dd))			;the last row is distinct
+(assert (distinct aa ab ac ad))			  ;the first row is distinct
+(assert (distinct ba bb bc bd))			  ;the second row is distinct
+(assert (distinct ca cb cc cd))			  ;the third row is distinct
+(assert (distinct da db dc dd))			  ;the last row is distinct
 
-(assert (distinct aa ba ca da))			;the first column is distinct
-(assert (distinct ab bb cb db))			;the second column is distinct
-(assert (distinct ac bc cc dc))			;the third column is distinct
-(assert (distinct ad bd cd dd))			;the last column is distinct
+(assert (distinct aa ba ca da))			  ;the first column is distinct
+(assert (distinct ab bb cb db))			  ;the second column is distinct
+(assert (distinct ac bc cc dc))			  ;the third column is distinct
+(assert (distinct ad bd cd dd))			  ;the last column is distinct
 
 (assert (or (=(- aa ba) 1) (= (- ba aa) 1)))		;aa - ba = 1 || ba - aa = 1
 (assert (or (= ac (* ad 2))(= ad (* ac 2)))) 		;ac = 2 * ad || ac = 2 * ad
