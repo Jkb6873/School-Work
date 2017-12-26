@@ -60,15 +60,15 @@
 (assert (= dc 4))
 (assert (and (> dd 0) (< dd 5)))
 
-(assert (distinct aa ab ac ad))			      ;the first row is distinct
-(assert (distinct ba bb bc bd))			      ;the second row is distinct
-(assert (distinct ca cb cc cd))			      ;the third row is distinct
-(assert (distinct da db dc dd))			      ;the last row is distinct
+(assert (distinct aa ab ac ad))			        ;the first row is distinct
+(assert (distinct ba bb bc bd))			        ;the second row is distinct
+(assert (distinct ca cb cc cd))			        ;the third row is distinct
+(assert (distinct da db dc dd))			        ;the last row is distinct
 
-(assert (distinct aa ba ca da))			      ;the first column is distinct
-(assert (distinct ab bb cb db))			      ;the second column is distinct
-(assert (distinct ac bc cc dc))			      ;the third column is distinct
-(assert (distinct ad bd cd dd))			      ;the last column is distinct
+(assert (distinct aa ba ca da))			        ;the first column is distinct
+(assert (distinct ab bb cb db))			        ;the second column is distinct
+(assert (distinct ac bc cc dc))			        ;the third column is distinct
+(assert (distinct ad bd cd dd))			        ;the last column is distinct
 
 (assert (or (=(- aa ba) 1) (= (- ba aa) 1)))		;aa - ba = 1 || ba - aa = 1
 (assert (or (= ac (* ad 2))(= ad (* ac 2)))) 		;ac = 2 * ad || ac = 2 * ad
@@ -77,7 +77,7 @@
 (assert (or (=(- da db) 2) (= (- db da) 2)))		;da - db = 2 || db - da = 2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	(assert (= 6 (* bd cd dd))) nonlinear arithmetic, can be replaced
+;	(assert (= 6 (* bd cd dd)))   nonlinear arithmetic, can be replaced
 ;	since 4 is not a factor of 3, the possibilities of bd, cd, and dd are reduced
 ;	to 1, 2, and 3, irrespectively. For any values that they take, the constraint
 ;	6 = bd * cd * dd will hold, so it is sufficient to say ad = 4, and remaining
