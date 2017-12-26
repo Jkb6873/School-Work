@@ -4,7 +4,7 @@
 ;	I grant permission to use this for research purposes. 
 ;	running time:  0m 0.031s
 ;	1994 MiB System memory
-;   Intel Xeon W3503 (2.40 GHz) CPU
+; Intel Xeon W3503 (2.40 GHz) CPU
 ;
 ;	Below is a SMT model for a 4x4 ken-ken puzzle, where the general rules of the
 ;	puzzle are:
@@ -73,7 +73,7 @@
 (assert (or (=(- aa ba) 1) (= (- ba aa) 1)))		;aa - ba = 1 || ba - aa = 1
 (assert (or (= ac (* ad 2))(= ad (* ac 2)))) 		;ac = 2 * ad || ac = 2 * ad
 (assert (or (=(- bb bc) 3) (= (- bc bb) 3)))		;bb - bc = 3 || bc - bb = 3
-(assert (= (+ ca cb cc) 9))							;ca + cb + cc = 9
+(assert (= (+ ca cb cc) 9))							        ;ca + cb + cc = 9
 (assert (or (=(- da db) 2) (= (- db da) 2)))		;da - db = 2 || db - da = 2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
