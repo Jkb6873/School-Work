@@ -23,7 +23,9 @@ Run Tests:
 		Calculates the amount of collisions and other statistics. 
 
 	make run2short 	
-		Runs a spell check program, using the constructed hash table on a short document
+		Runs a spell check program, on a short document, 
+		using the constructed hash table as a dictionary.
 
 	make run2 	
-		Runs a spell check program, using the constructed hash table on a large document. 
+		Runs a spell check program, on a large document, 
+		using the constructed hash table as a dictionary.
