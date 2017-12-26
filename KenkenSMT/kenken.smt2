@@ -77,7 +77,7 @@
 (assert (or (=(- da db) 2) (= (- db da) 2)))		;da - db = 2 || db - da = 2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	(assert (= 6 (* bd cd dd)))   nonlinear arithmetic, can be replaced
+;	(assert (= 6 (* bd cd dd)))             nonlinear arithmetic, can be replaced
 ;	since 4 is not a factor of 3, the possibilities of bd, cd, and dd are reduced
 ;	to 1, 2, and 3, irrespectively. For any values that they take, the constraint
 ;	6 = bd * cd * dd will hold, so it is sufficient to say ad = 4, and remaining
