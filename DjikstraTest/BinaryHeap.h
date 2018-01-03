@@ -1,8 +1,8 @@
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
 
-#include "dsexceptions.h"
 #include <vector>
+#include <stdexcept>
 using namespace std;
 
 // BinaryHeap class
@@ -16,20 +16,16 @@ using namespace std;
 // bool isEmpty( )        --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // ******************ERRORS********************************
-// Throws UnderflowException as warranted
+// Throws underflow_error as warranted
 
 template <typename Comparable>
 class BinaryHeap
 {
   public:
-    explicit BinaryHeap( int capacity = 100 )
-      : array( capacity + 1 ), currentSize{ 0 }
-    {
-    }
+    explicit BinaryHeap( int capacity = 100 ): array( capacity + 1 ), currentSize{ 0 }{}
 
     explicit BinaryHeap( const vector<Comparable> & items )
-      : array( items.size( ) + 10 ), currentSize{ items.size( ) }
-    {
+      : array( items.size( ) + 10 ), currentSize{items.size()}{
         for( int i = 0; i < items.size( ); ++i )
             array[ i + 1 ] = items[ i ];
         buildHeap( );
@@ -42,17 +38,17 @@ class BinaryHeap
      * Find the smallest item in the priority queue.
      * Return the smallest item, or throw Underflow if empty.
      */
-    const Comparable & findMin( ) const
+    Comparable& findMin( )
     {
         if( isEmpty( ) )
-            throw UnderflowException{ };
+            throw underflow_error("Underflow error, minheap empty");
         return array[ 1 ];
     }
-    
+
     /**
      * Insert item x, allowing duplicates.
      */
-    void insert( const Comparable & x )
+    void insert( Comparable & x )
     {
         if( currentSize == array.size( ) - 1 )
             array.resize( array.size( ) * 2 );
@@ -60,13 +56,13 @@ class BinaryHeap
             // Percolate up
         int hole = ++currentSize;
         Comparable copy = x;
-        
+
         array[ 0 ] = std::move( copy );
         for( ; x < array[ hole / 2 ]; hole /= 2 )
             array[ hole ] = std::move( array[ hole / 2 ] );
         array[ hole ] = std::move( array[ 0 ] );
     }
-    
+
 
     /**
      * Insert item x, allowing duplicates.
@@ -82,7 +78,7 @@ class BinaryHeap
             array[ hole ] = std::move( array[ hole / 2 ] );
         array[ hole ] = std::move( x );
     }
-    
+
     /**
      * Remove the minimum item.
      * Throws UnderflowException if empty.
@@ -90,7 +86,7 @@ class BinaryHeap
     void deleteMin( )
     {
         if( isEmpty( ) )
-            throw UnderflowException{ };
+            throw underflow_error("Underflow error, minheap empty");
 
         array[ 1 ] = std::move( array[ currentSize-- ] );
         percolateDown( 1 );
@@ -103,7 +99,7 @@ class BinaryHeap
     void deleteMin( Comparable & minItem )
     {
         if( isEmpty( ) )
-            throw UnderflowException{ };
+            throw underflow_error("Underflow error, minheap empty");
 
         minItem = std::move( array[ 1 ] );
         array[ 1 ] = std::move( array[ currentSize-- ] );
