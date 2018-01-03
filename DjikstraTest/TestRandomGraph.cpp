@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
     int maxNodes = atoi(argv[1]);
     Graph graphObj(maxNodes);
     LoadGraph(graphObj, maxNodes);
-    int maxOut, minOut;
+    unsigned int maxOut, minOut;
     double avgOut;
     graphObj.GetOutDeg(minOut, maxOut, avgOut);
 

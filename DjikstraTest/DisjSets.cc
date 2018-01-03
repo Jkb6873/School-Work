@@ -1,12 +1,12 @@
 #include "DisjSets.h"
-
+#include <iostream>
 /**
  * Construct the disjoint sets object.
  * numElements is the initial number of disjoint sets.
  */
 DisjSets::DisjSets( int numElements ) : s( numElements, -1 ){
     for (int x : s)
-        x = -1;
+        s[x] = -1;
 }
 
 /**
@@ -50,7 +50,7 @@ int DisjSets::find( int x ) const
 
 int DisjSets::GetRoots(){
     int roots = 0;
-    for(int i = 0; i < s.size(); ++i){
+    for(unsigned int i = 0; i < s.size(); ++i){
         if (s[i] < 1)
             ++roots;
     }
