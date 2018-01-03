@@ -144,12 +144,10 @@ void Graph::GetAllDistances(vertex &PointA){
             nextFocus.deleteMin();
         }
 
-        cout << "focus is now at: " << focus->name_ << endl;
         focus->checked_ = true;
 
         //for every pair within the adjacency map
         for( auto itr : focus->adjacent_){
-            cout << "Comparing with " << itr.first->name_ << " distance is " << itr.first->distance_ << endl;
             //if the total distance is less than the distance set on the vertex
             if (focus->distance_ + itr.second < itr.first->distance_){
                 //make the lesser distance the current distance
@@ -158,7 +156,6 @@ void Graph::GetAllDistances(vertex &PointA){
                 //insert the connection into the min heap as a possible next focus.
                 Connection tempConnection(itr.first, itr.second);
                 nextFocus.insert(tempConnection);
-                cout << "we found a lower distance, vertex " << itr.first->name_ << " now has distance " <<itr.first->distance_ << endl;
             }
         }
 
@@ -177,23 +174,7 @@ void Graph::print(unsigned int startname){
     if (start == nullptr)
         throw std::runtime_error("Argument node not in graph");
 
-//    for(auto i : graph_){
-//        cout << i.name_ << "\t" << i.checked_ << "\t" << i.distance_ << endl;
-//    }
-//    cout << "--------------------------" << endl;
-
-//    for(auto i : graph_){
-//        if (i.checked_ == false)
-//            shortestpath(start, i.name_);
-//    }
     GetAllDistances(*start);
-    for (auto i : graph_){
-        cout << i.name_ << ": ";
-        for(auto j : i.adjacent_){
-            cout << '\t' << j.first->name_ << endl;
-        }
-    }
-
 
     for (auto i : graph_){
         cout << i.name_ << ": ";
