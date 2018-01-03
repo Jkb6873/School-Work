@@ -6,8 +6,6 @@
 #include "Graph.h"
 using namespace std;
 
-//void GetPathLengths(Graph &graphObj, int start);
-
 int main(int argc, char *argv[]){
     try{
     if (argc != 3)
