@@ -7,6 +7,7 @@
 #include <sstream>
 #include <random>
 #include <time.h>
+#include "BinaryHeap.h"
 using namespace std;
 
 size_t LineCount(ifstream &graphFile);
@@ -16,6 +17,8 @@ class vertex{
     friend class Graph;
     public:
         vertex(int name): name_{name}{};
+        vertex():name_{0}{};
+        bool operator < (vertex &right);
     private:
         int name_;
         map<vertex*, double> adjacent_;
@@ -29,17 +32,22 @@ class Graph{
         explicit Graph(ifstream &graphFile);
         explicit Graph(int maxNodes);
         double shortestpath(int A, int B);
-        void print(int start);
-        void GetOutDeg(int &min, int &max, double &avg);
+        void print(unsigned int start);
+        void GetOutDeg(unsigned int &min, unsigned int &max, double &avg);
         void InsertConnection(int a, int b);
         vertex* Find(int name);
         double GetWeight(int a, int b);
         vertex* Input (int name);
     private:
         void shortestpath(vertex &PointA, vertex &PointB, vertex*prev, double & current, double & best);
+        void GetAllDistances(vertex &PointA);
         list<vertex> graph_;
-	int totalConnections_;
+        int totalConnections_;
 };
+
+bool vertex::operator<(vertex &right){
+    return (this->distance_ < right.distance_)?true:false;
+}
 
 Graph::Graph(ifstream &graphFile){
     totalConnections_ = 0;
@@ -65,12 +73,10 @@ Graph::Graph(ifstream &graphFile){
 Graph::Graph(int maxNodes){
     totalConnections_ = 0;
     vertex temp(0);
-    //temp.weight_ = 1;
     for (int i = 0; i < maxNodes; i++){
         temp.name_ = i;
         graph_.push_back(temp);
     }
-    //CreateConnections(maxNodes);
 }
 
 vertex* Graph:: Input(int name){
@@ -116,61 +122,85 @@ double Graph::GetWeight(int pointA, int pointB){
     return -1;
 }
 
-double Graph::shortestpath(int A, int B){
-    vertex *v1, *v2;
-    v1 = Find(A);
-    v1->distance_ = 0;
-    v2 = Find(B);
-    double current = 0, best = 9999;
-    shortestpath(*v1, *v2, v1->previous_, current, best);
-    return best;
+
+void Graph::GetAllDistances(vertex &PointA){
+    //a small struct, basically meant to copy a pair in a map
+    struct Connection{
+        Connection(vertex* inVert, double inDist): vert{inVert}, weight{inDist}{}
+        bool operator < (Connection right){return this->weight < right.weight?true:false;}
+        Connection():vert{nullptr},weight{9999}{}
+        vertex* vert;
+        double weight;
+    };
+
+    BinaryHeap<Connection> nextFocus(totalConnections_);
+    PointA.distance_ = 0;
+    vertex* focus = &PointA;
+
+    do{
+        if(focus != &PointA){
+            if (nextFocus.isEmpty())
+                return;
+            nextFocus.deleteMin();
+        }
+
+        cout << "focus is now at: " << focus->name_ << endl;
+        focus->checked_ = true;
+
+        //for every pair within the adjacency map
+        for( auto itr : focus->adjacent_){
+            cout << "Comparing with " << itr.first->name_ << " distance is " << itr.first->distance_ << endl;
+            //if the total distance is less than the distance set on the vertex
+            if (focus->distance_ + itr.second < itr.first->distance_){
+                //make the lesser distance the current distance
+                itr.first->distance_ =  focus->distance_ + itr.second;
+                itr.first->previous_ = focus;
+                //insert the connection into the min heap as a possible next focus.
+                Connection tempConnection(itr.first, itr.second);
+                nextFocus.insert(tempConnection);
+                cout << "we found a lower distance, vertex " << itr.first->name_ << " now has distance " <<itr.first->distance_ << endl;
+            }
+        }
+
+        if (!nextFocus.isEmpty())
+            focus = nextFocus.findMin().vert;
+    }while(!nextFocus.isEmpty());
+    //continue until no costs other than 9999
+
+
 }
 
 
-void Graph::shortestpath(vertex &PointA, vertex &PointB, vertex*prev, double & current, double & best){
-    if (PointA.checked_ == true){
-        if (current < PointA.distance_){
-            PointA.distance_ = current;
-            PointA.previous_ = prev;
-        }
-        return;
-    }
-    //if checked, ignore.
-    if (PointA.name_ == PointB.name_){
-        if (current < best)
-            best = current;
-        return;
-    }
-    //if we reach the final bit, overwrite best with current
-    //going through each adjacent vertices
 
-    PointA.checked_= true;
-    double cost,  optimal = 9999;
-    for( auto itr = (&PointA)->adjacent_.begin(); itr != (&PointA)->adjacent_.end(); itr++ ){
-        vertex* t1 = itr->first;
-        if (t1->distance_ > current + itr->second){
-            t1->distance_ = current + itr->second;
-            t1->previous_ = &PointA;
-        }
-        cost = t1->distance_;
-        //now for each of these verticies, run the shortest path function.
-        shortestpath(*t1,PointB,&PointA,cost,optimal);
-    }
-    if(optimal < best)
-        best = optimal;
-}
+void Graph::print(unsigned int startname){
+    vertex* start = Find(startname);
+    if (start == nullptr)
+        throw std::runtime_error("Argument node not in graph");
 
-void Graph::print(int start){
-    for(auto i : graph_){
-        if (i.checked_ == false)
-            shortestpath(start, i.name_);
+//    for(auto i : graph_){
+//        cout << i.name_ << "\t" << i.checked_ << "\t" << i.distance_ << endl;
+//    }
+//    cout << "--------------------------" << endl;
+
+//    for(auto i : graph_){
+//        if (i.checked_ == false)
+//            shortestpath(start, i.name_);
+//    }
+    GetAllDistances(*start);
+    for (auto i : graph_){
+        cout << i.name_ << ": ";
+        for(auto j : i.adjacent_){
+            cout << '\t' << j.first->name_ << endl;
+        }
     }
+
+
     for (auto i : graph_){
         cout << i.name_ << ": ";
         vertex* v = &i;
-	if(v->distance_ == 9999){
+        if(v->distance_ == 9999){
             cout <<"No path." << endl;
-            return;
+            continue;//return;
         }
         stack<int> storage;
         while(v != nullptr){
@@ -181,7 +211,8 @@ void Graph::print(int start){
             cout << storage.top() << ", ";
             storage.pop();
         }
-        cout << "Cost: " << i.distance_ << endl;
+        int x = i.distance_;
+        cout << "Cost: " << x << endl;//i.distance_ << endl;
     }
 }
 
@@ -193,7 +224,7 @@ void Graph::InsertConnection(int A, int B){
     ++totalConnections_;
 }
 
-void Graph::GetOutDeg(int &min, int &max, double &avg){
+void Graph::GetOutDeg(unsigned int &min, unsigned int &max, double &avg){
     min = 9999999; max = 0; avg = 0;
     for (auto i : graph_){
         if (i.adjacent_.size() < min)
